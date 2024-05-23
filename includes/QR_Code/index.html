@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+        }
+        #qrcode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR-Code Generator</h1>
+    <!-- Eingabefeld für den Text -->
+    <input type="text" id="text" placeholder="Geben Sie Text ein">
+    <!-- Button zum Generieren des QR-Codes -->
+    <button onclick="generateQRCode()">QR-Code generieren</button>
+    <!-- Bereich zum Anzeigen des QR-Codes -->
+    <div id="qrcode"></div>
+
+    <!-- Einbindung der QR-Code-Bibliothek -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        // Funktion zum Generieren des QR-Codes
+        function generateQRCode() {
+            // Holen des Texts aus dem Eingabefeld
+            const text = document.getElementById('text').value;
+            // Überprüfen, ob der Text nicht leer ist
+            if (text) {
+                // Generieren des QR-Codes als Data URL
+                QRCode.toDataURL(text, { width: 300, height: 300 }, function (err, url) {
+                    if (err) console.error(err);
+                    // Anzeigen des generierten QR-Codes im HTML-Element mit der ID 'qrcode'
+                    document.getElementById('qrcode').innerHTML = '<img src="' + url + '">';
+                });
+            } else {
+                // Fehlermeldung, wenn kein Text eingegeben wurde
+                alert('Bitte geben Sie einen Text ein.');
+            }
+        }
+    </script>
+</body>
+</html>
